@@ -1,6 +1,10 @@
 import { Knight, Square } from "../component";
+import { useSelector } from "react-redux";
 
-export default function Board({ playerPosition, setPlayerPos }) {
+export default function Board() {
+  const stateGlobal = useSelector((state) => state);
+  const playerPos = stateGlobal.playerPos;
+
   const setSquare = (i, [posX, posY]) => {
     const x = i % 8;
     const y = Math.floor(i / 8);
@@ -8,39 +12,23 @@ export default function Board({ playerPosition, setPlayerPos }) {
     const isCurPos = x === posX && y === posY;
     const cekPoint = isCurPos ? <Knight /> : null;
     const size = 100 / 8;
+    const pos = [x, y];
 
     return (
-      <div
+      <Square
         key={i}
-        onClick={() => handleClick(x, y)}
-        style={{ width: `${size}%`, height: `${size}%` }}
+        black={black}
+        style={{ position: "relative", width: `${size}%`, height: `${size}%` }}
+        pos={pos}
       >
-        <Square black={black}>{cekPoint}</Square>
-      </div>
-    );
-  };
-
-  const handleClick = (x, y) => {
-    // console.log(x, y);
-    if (canMoveKnight(x, y)) {
-      setPlayerPos([x, y]);
-    }
-  };
-
-  const canMoveKnight = (toX, toY) => {
-    const [x, y] = playerPosition;
-    const dx = toX - x;
-    const dy = toY - y;
-
-    return (
-      (Math.abs(dx) === 2 && Math.abs(dy) === 1) ||
-      (Math.abs(dx) === 1 && Math.abs(dy) === 2)
+        {cekPoint}
+      </Square>
     );
   };
 
   const squares = [];
   for (let i = 0; i < 64; i++) {
-    squares.push(setSquare(i, playerPosition));
+    squares.push(setSquare(i, playerPos));
   }
 
   return (
