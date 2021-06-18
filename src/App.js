@@ -1,14 +1,17 @@
 import "./styles.css";
 import { Board } from "./component";
-import React, { useState } from "react";
+import React from "react";
+import { Provider } from "react-redux";
+import store from "./Redux";
 
-export default function App() {
-  const [playerPos, setPlayerPos] = useState([1, 2]);
-
+function App() {
   return (
-    <Board
-      playerPosition={playerPos}
-      setPlayerPos={(pos) => setPlayerPos(pos)}
-    />
+    <>
+      <Provider store={store}>
+        <Board />
+      </Provider>
+    </>
   );
 }
+
+export default App;
