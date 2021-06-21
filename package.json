@@ -1,7 +1,7 @@
 {
   "name": "chess-knight",
   "version": "1.0.0",
-  "description": "",
+  "description": "chess knight movement using React JS + Redux + Tailwind",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {
